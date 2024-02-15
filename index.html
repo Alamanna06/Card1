@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script>
+
+        function enableOrDisable(val){
+            document.querySelectorAll('.form-inputs').forEach(function(n, index){
+                n.disabled=val;
+            })
+        }
+        function changeCard(){
+            var imgValue = document.querySelector('#inputImg').value;
+
+           if(imgValue!=''){
+            //document.querySelector('img').src=imgValue;
+            /*<img src="https://image.jimcdn.com/app/cms/image/transf/none/path/sf63059cf0e80ccf2/image/iaa7ff6422e6cf20a/version/1691333296/image.jpg"
+            style="max-width: 100%;"
+            class="card-img-top" alt="Immagine mare">*/
+            var imgElement= document.createElement("img");
+            imgElement.src = imgValue;
+            imgElement.classList.add("card-img-top");
+            document.querySelector(".card").prepend(imgElement);
+            document.querySelector(".spinner-border.m-5").remove();
+           }
+
+           document.querySelectorAll('.placeholder-glow').forEach(function(el){
+            let attr = el.getAttribute('data-source');
+            let inputValue = document.querySelector('#'+ attr).value;
+            if(inputValue!= ""){
+                el.innerText = document.querySelector('#'+ attr).value;
+            }
+            //var inputValue = document.querySelector();
+           });
+
+           enableOrDisable(false);
+        }
+
+        function cloneCard(n){
+            for (let i = 0; i < n; i++) {
+                console.log(n);
+                //                document.querySelector('body').appendChild(node);
+            }
+
+        }
+        function timer(){
+           enableOrDisable(true);
+            setTimeout(function(){
+                changeCard();
+            }
+                , 1000)
+        }
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const cardsNumber = urlParams.get('cards')
+        cloneCard(parseInt(cardsNumber));
+
+    </script>
+</head>
+  <body>
+    <div class="card" style="width: 18rem;">
+        <div class="spinner-border m-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        <div class="card-body">
+            <h5 class="card-title placeholder-glow" data-source="inputTitle">
+                <span class="placeholder col-6"></span>
+              </h5>
+              <p class="card-text placeholder-glow" data-source="inputDescr">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-8"></span>
+              </p>
+        </div>
+      </div>
+      <form>
+        <div class="mb-3">
+            <label for="inputTitle" class="form-label">Titolo</label>
+            <input type="text" class="form-control form-inputs" id="inputTitle" placeholder="Inserisci il titolo">
+        </div>
+        <div class="mb-3">
+            <label for="inputDescr" class="form-label">Descrizione</label>
+            <input type="text" class="form-control form-inputs" id="inputDescr" placeholder="Inserisci la descrizione">
+        </div>
+        <div class="mb-3">
+            <label for="inputImg" class="form-label">Immagine</label>
+            <input type="text" class="form-control form-inputs" id="inputImg" placeholder="Inserisci l'url dell'immagine">
+        </div>
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">Numero di card</label>
+            <input type="number" class="form-control form-inputs" id="cardNumber" placeholder="Inserisci numero di card">
+        </div>
+        <button type="button" class="btn btn-primary form-inputs" onclick="timer()">Invio</button>
+      </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
